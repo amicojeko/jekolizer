@@ -2,7 +2,19 @@ require 'sinatra'
 require 'redis'  
 require 'net/http'
 
-redis = Redis.new  
+configure do
+  ENV["REDISTOGO_URL"] = 'redis://redistogo:52688109ddc301de4832640b629b4728@slimehead.redistogo.com:9449' 
+  uri = URI.parse(ENV["REDISTOGO_URL"])
+  REDIS = Redis.new(:host => uri.host, :port => uri.port, :password => uri.password)
+end
+
+
+
+#REDIS = Redis.new  
+
+
+
+
 helpers do  
   include Rack::Utils  
   alias_method :h, :escape_html  
@@ -16,18 +28,18 @@ end
 post '/' do    
   if params[:url] and not params[:url].empty?  
     @shortcode = random_string 5  
-    redis.setnx "links:#{@shortcode}", params[:url]  
-    redis.setnx "links:#{@shortcode}s1", params[:s1]
-    redis.setnx "links:#{@shortcode}r1", params[:r1]
+    REDIS.setnx "links:#{@shortcode}", params[:url]  
+    REDIS.setnx "links:#{@shortcode}s1", params[:s1]
+    REDIS.setnx "links:#{@shortcode}r1", params[:r1]
     @host = "http://" << request.host
     @host << ":" << request.port.to_s unless request.port == 80
   end  
   erb :index  
 end  
 get '/:shortcode' do  
-  @url = redis.get "links:#{params[:shortcode]}"  
-  search = redis.get "links:#{params[:shortcode]}s1"
-  replace = redis.get "links:#{params[:shortcode]}r1"  
+  @url = REDIS.get "links:#{params[:shortcode]}"  
+  search = REDIS.get "links:#{params[:shortcode]}s1"
+  replace = REDIS.get "links:#{params[:shortcode]}r1"  
   #redirect @url || '/'  
   url = URI.parse(@url)
     req = Net::HTTP::Get.new(url.path)
