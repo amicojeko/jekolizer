@@ -22,7 +22,7 @@
         <% if @jekolized_page %>
         <div class="result">
             Your jekolized URL is:
-            <a href="/<%= @jekolized_page.token %>">/<%= @jekolized_page.token %></a>
+            <a href="<%= base_url+'/'+@jekolized_page.token %>"><%= base_url+'/'+@jekolized_page.token %></a>
         </div>
         <% end %>
     </div>
