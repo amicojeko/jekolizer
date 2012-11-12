@@ -4,7 +4,7 @@ require 'sinatra'
 require 'bundler'
 Bundler.require
 
-require File.join File.dirname(__FILE__), 'jekolized_page'
+require File.join File.dirname(__FILE__), 'models', 'jekolized_page'
 
 
 configure do
