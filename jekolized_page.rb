@@ -14,9 +14,13 @@ class JekolizedPage
   end
 
   def save
-    @token ||= random_string(6)
+    @token ||= generate_unique_token
     attributes = {:url => url, :host => host, :search => replacements[0], :replace => replacements[1]}
     attributes.each { |key, value| REDIS.hset(@token, key, value) }
+  end
+
+  def generate_unique_token
+    REDIS.incr('token_count').to_s 36
   end
 
   def host
@@ -25,10 +29,6 @@ class JekolizedPage
 
   def url
     @url =~ /http:\/\//i ? @url : "http://#{@url}"
-  end
-
-  def random_string length
-    rand(36**length).to_s 36
   end
 
   def original_content
