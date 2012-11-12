@@ -8,10 +8,15 @@
     <div class="container">
         <h1>The Jekolizer</h1>
         <form method="post">
-            <input type="text" value="<%= @jekolized_page.url if @jekolized_page %>" name="url" id="url" />
-            <input type="text" placeholder="search" name="s1" id="s1" />
-            <input type="text" placeholder="replace" name="r1" id="r1" />
-            <input type="submit" value="jekolize" id="submit" />
+            <input type="text" placeholder="http://www.washingtonpost.com/" value="<%= @jekolized_page.url if @jekolized_page %>" name="url" id="url" />
+
+            <label for="s1">Search</label>
+            <input type="text" placeholder="Obama" name="s1" id="s1" />
+
+            <label for="s1">Replace</label>
+            <input type="text" placeholder="Snoop dog" name="r1" id="r1" />
+
+            <input type="submit" value="Jekolize" id="submit" />
         </form>
         <div class="clear"></div>
         <% if @jekolized_page %>
