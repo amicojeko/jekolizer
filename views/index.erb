@@ -11,10 +11,16 @@
             <input type="text" placeholder="http://www.washingtonpost.com/" value="<%= @jekolized_page.url if @jekolized_page %>" name="url" id="url" />
 
             <label for="s1">Search</label>
-            <input type="text" placeholder="Obama" name="s1" id="s1" />
+            <input type="text" placeholder="Obama" name="replacements[0][s]" />
 
             <label for="s1">Replace</label>
-            <input type="text" placeholder="Snoop dog" name="r1" id="r1" />
+            <input type="text" placeholder="Snoop dog" name="replacements[0][r]" />
+
+            <label for="s1">Search (2)</label>
+            <input type="text" placeholder="Obama" name="replacements[1][s]" />
+
+            <label for="s1">Replace (2)</label>
+            <input type="text" placeholder="Snoop dog" name="replacements[1][r]" />
 
             <input type="submit" value="Jekolize" id="submit" />
         </form>

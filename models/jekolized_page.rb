@@ -10,12 +10,12 @@ class JekolizedPage
   def self.load token
     attributes = REDIS.hgetall token
     return nil if !attributes or attributes.empty?
-    JekolizedPage.new attributes['url'], [attributes['search'], attributes['replace']], token
+    JekolizedPage.new attributes['url'], JSON.parse(attributes['replacements']), token
   end
 
   def save
     @token ||= generate_unique_token
-    attributes = {:url => url, :host => host, :search => replacements[0], :replace => replacements[1]}
+    attributes = {:url => url, :host => host, :replacements => replacements.to_s}
     attributes.each { |key, value| REDIS.hset(@token, key, value) }
   end
 
@@ -38,7 +38,7 @@ class JekolizedPage
   def render
     body = original_content
     body.gsub! "<head>", "<head><base href=\"http://#{host}/\" target=\"_blank\">"
-    body.gsub! replacements[0], replacements[1]
+    replacements.each { |search, replace| body.gsub!(search, replace) }
     body
   end
 end

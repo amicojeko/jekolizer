@@ -2,6 +2,7 @@
 require 'rubygems'
 require 'sinatra'
 require 'bundler'
+require 'json'
 Bundler.require
 
 require File.join File.dirname(__FILE__), 'models', 'jekolized_page'
@@ -33,7 +34,7 @@ end
 
 post '/' do
   if params[:url] and not params[:url].empty?
-    @jekolized_page = JekolizedPage.new params[:url], [params[:s1], params[:r1]]
+    @jekolized_page = JekolizedPage.new params[:url], params[:replacements].values.map(&:values)
     @jekolized_page.save
   end
   erb :index
