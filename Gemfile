@@ -11,3 +11,6 @@ gem 'httpclient'
 # Debugging
 gem 'pry'
 gem 'colorize'
+
+# xml/html/json handling
+gem 'nokogiri'

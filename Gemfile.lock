@@ -5,6 +5,7 @@ GEM
     colorize (0.5.8)
     httpclient (2.3.0.1)
     method_source (0.8.1)
+    nokogiri (1.5.5)
     pry (0.9.10)
       coderay (~> 1.0.5)
       method_source (~> 0.8)
@@ -26,6 +27,7 @@ PLATFORMS
 DEPENDENCIES
   colorize
   httpclient
+  nokogiri
   pry
   redis
   sinatra
