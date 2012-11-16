@@ -5,8 +5,8 @@ require 'bundler'
 require 'json'
 Bundler.require
 
-require File.join File.dirname(__FILE__), 'models', 'jekolized_page'
-
+require "#{settings.root}/models/page"
+require "#{settings.root}/lib/assets_proxy"
 
 configure do
   if ENV["REDISTOGO_URL"]
@@ -34,13 +34,13 @@ end
 
 post '/' do
   if params[:url] and not params[:url].empty?
-    @jekolized_page = JekolizedPage.new params[:url], params[:replacements].values.map(&:values)
-    @jekolized_page.save
+    @page = JekolizedPage.new params[:url], params[:replacements].values.map(&:values)
+    @page.save
   end
   erb :index
 end
 
 get '/:shortcode' do
-  jekolized_page = JekolizedPage.load params[:shortcode]
-  jekolized_page.render
+  page = JekolizedPage.load params[:shortcode]
+  page.render
 end

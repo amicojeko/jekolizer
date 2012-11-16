@@ -1,35 +1,50 @@
 <!DOCTYPE html>
 <html>
-<head>
+  <head>
     <title>The Jekolizer</title>
+    <script type="text/javascript" src="javascripts/jquery.min.js"></script>
     <link href="stylesheets/screen.css" media="screen" rel="stylesheet" type="text/css" />
-</head>
-<body>
-    <div class="container">
-        <h1>The Jekolizer</h1>
+    <script type="text/javascript" src="javascripts/application.js"></script>
+  </head>
+
+  <body>
+    <article>
+      <header>
+          <h1>The Jekolizer</h1>
+      </header>
+
+      <section class="replacement_data">
         <form method="post">
-            <input type="text" placeholder="http://www.washingtonpost.com/" value="<%= @jekolized_page.url if @jekolized_page %>" name="url" id="url" />
+          <ul>
+            <li class="url">
+              <input type="text" placeholder="http://www.washingtonpost.com/" value="<%= @jekolized_page.url if @jekolized_page %>" name="url" id="url" class="input_text"/>
+            </li>
 
-            <label for="s1">Search</label>
-            <input type="text" placeholder="Obama" name="replacements[0][s]" />
+            <li class="replacement_pair" num="0">
+              <span class="search">
+                <label>Search</label>
+                <input type="text" placeholder="Obama" maxlength="10" name="replacements[0][s]" class="input_text" />
+              </span>
+              <span class="replace">
+                <label>Replace</label>
+                <input type="text" placeholder="Snoop dog" maxlength="10" name="replacements[0][r]" class="input_text" />
+                <span class="button add">+</span>
+              </span>
+            </li>
 
-            <label for="s1">Replace</label>
-            <input type="text" placeholder="Snoop dog" name="replacements[0][r]" />
-
-            <label for="s1">Search (2)</label>
-            <input type="text" placeholder="Obama" name="replacements[1][s]" />
-
-            <label for="s1">Replace (2)</label>
-            <input type="text" placeholder="Snoop dog" name="replacements[1][r]" />
-
-            <input type="submit" value="Jekolize" id="submit" />
+            <li class="submit">
+              <input type="submit" value="Jekolize" id="submit" class="submit"/>
+            </li>
+          </ul>
         </form>
-        <div class="clear"></div>
-        <% if @jekolized_page %>
-        <div class="result">
-            Your jekolized URL is:
-            <a href="<%= base_url+'/'+@jekolized_page.token %>"><%= base_url+'/'+@jekolized_page.token %></a>
-        </div>
-        <% end %>
-    </div>
-</body>  
+      </section>
+
+      <% if @jekolized_page %>
+        <section class="generated_url">
+          Your jekolized URL is:
+          <a href="<%= base_url+'/'+@jekolized_page.token %>"><%= base_url+'/'+@jekolized_page.token %></a>
+        </section>
+      <% end %>
+    </article>
+  </body>
+</html>

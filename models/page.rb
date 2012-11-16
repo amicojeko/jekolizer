@@ -1,4 +1,4 @@
-class JekolizedPage
+class Page
   attr_reader :replacements, :token
 
   def initialize url, replacements, token=nil

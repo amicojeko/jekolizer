@@ -14,3 +14,7 @@ gem 'colorize'
 
 # xml/html/json handling
 gem 'nokogiri'
+
+# assets
+gem 'sass'
+gem 'coffee-script'

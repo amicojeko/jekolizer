@@ -1,0 +1,77 @@
+@import "_reset.css"
+@import "_blankwork.scss"
+@import "http://fonts.googleapis.com/css?family=Julius+Sans+One"
+
+$_columns: 6
+$orange: #ff4b33
+$lighter_orange: #ff7866
+
+article
+  @include wrapper
+  font-size: 1em
+  font-family: Helvetica, sans-serif
+  margin-top: 15%
+
+
+  header
+    @include column(6)
+    font-family: "Julius Sans One", sans-serif
+    font-size: 1.6em
+    color: $orange
+
+
+  section.replacement_data
+    margin-top: 2em
+
+    .input_text
+      padding: 0.3em 0.2em
+      font-size: 1.05em
+
+    li.url input
+      @include column(6)
+
+    li.replacement_pair
+      label
+        font-size: 0.75em
+        color: gray
+
+      .search
+        @include column(3)
+        input
+          width: 100%
+
+      .replace
+        @include column(3)
+        input
+          width: 85%
+
+      .button
+        font-family: "Julius Sans One", sans-serif
+        font-size: 1.5em
+        padding-left: 0.3em
+        color: $orange
+        font-weight: bold
+        cursor: pointer
+        &:hover
+          color: $lighter_orange
+        &:active
+          color: $lighter_orange
+
+    li.submit
+      @include column(6)
+      input
+        border: 1px solid $orange
+        background: $orange
+        padding: 0.4em 1.1em
+        font-size: 1.1em
+        cursor: pointer
+        margin-left: 0 //fix
+        &:hover
+          background: $lighter_orange
+        &:active
+          color: #FFFFFF
+
+
+  section.generated_url
+    border: 1px solid blue
+
