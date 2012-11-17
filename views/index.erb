@@ -17,17 +17,17 @@
         <form method="post">
           <ul>
             <li class="url">
-              <input type="text" placeholder="http://www.washingtonpost.com/" value="<%= @jekolized_page.url if @jekolized_page %>" name="url" id="url" class="input_text"/>
+              <input type="text" placeholder="http://www.washingtonpost.com/" value="<%= @jekolized_page.url if @jekolized_page %>" name="url" id="url" maxlength="300" class="input_text"/>
             </li>
 
             <li class="replacement_pair" num="0">
               <span class="search">
                 <label>Search</label>
-                <input type="text" placeholder="Obama" maxlength="10" name="replacements[0][s]" class="input_text" />
+                <input type="text" placeholder="Obama" maxlength="200" name="replacements[0][s]" class="input_text" />
               </span>
               <span class="replace">
                 <label>Replace</label>
-                <input type="text" placeholder="Snoop dog" maxlength="10" name="replacements[0][r]" class="input_text" />
+                <input type="text" placeholder="Snoop dog" maxlength="200" name="replacements[0][r]" class="input_text" />
                 <span class="button add">+</span>
               </span>
             </li>
