@@ -1,6 +1,6 @@
 @import "_reset.css"
 @import "_blankwork.scss"
-@import "http://fonts.googleapis.com/css?family=Julius+Sans+One"
+@import "http://fonts.googleapis.com/css?family=Ribeye+Marrow"
 
 $_columns: 6
 $orange: #ff4b33
@@ -15,13 +15,13 @@ article
 
   header
     @include column(6)
-    font-family: "Julius Sans One", sans-serif
-    font-size: 1.6em
+    font-family: "Ribeye Marrow", cursive
+    font-size: 2.3em
     color: $orange
 
 
   section.replacement_data
-    margin-top: 2em
+    margin-top: 2.6em
 
     .input_text
       padding: 0.3em 0.2em
@@ -29,11 +29,16 @@ article
 
     li.url input
       @include column(6)
+      margin-bottom: 0.3em
+      width: 87.7%
 
     li.replacement_pair
       label
         font-size: 0.75em
         color: gray
+
+      input
+        margin-bottom: 0.3em
 
       .search
         @include column(3)
@@ -46,9 +51,9 @@ article
           width: 82%
 
       .button
-        font-family: "Julius Sans One", sans-serif
-        font-size: 1.5em
-        padding-left: 0.3em
+        font-family: "Ribeye Marrow", cursive
+        font-size: 1.4em
+        padding-left: 0.1em
         color: $orange
         font-weight: bold
         cursor: pointer
@@ -62,7 +67,8 @@ article
       input
         border: 1px solid $orange
         background: $orange
-        padding: 0.4em 1.1em
+        margin-top: 0.4em
+        padding: 0.3em 1em
         font-size: 1.1em
         cursor: pointer
         margin-left: 0 //fix
