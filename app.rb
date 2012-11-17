@@ -34,13 +34,12 @@ end
 
 post '/' do
   if params[:url] and not params[:url].empty?
-    @page = JekolizedPage.new params[:url], params[:replacements].values.map(&:values)
+    @page = Page.new params[:url], params[:replacements].values.map(&:values)
     @page.save
   end
   erb :index
 end
 
 get '/:shortcode' do
-  page = JekolizedPage.load params[:shortcode]
-  page.render
+  Page.load(params[:shortcode]).render
 end

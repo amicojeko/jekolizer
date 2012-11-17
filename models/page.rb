@@ -10,7 +10,7 @@ class Page
   def self.load token
     attributes = REDIS.hgetall token
     return nil if !attributes or attributes.empty?
-    JekolizedPage.new attributes['url'], JSON.parse(attributes['replacements']), token
+    new attributes['url'], JSON.parse(attributes['replacements']), token
   end
 
   def save
@@ -38,7 +38,26 @@ class Page
   def render
     body = original_content
     body.gsub! "<head>", "<head><base href=\"http://#{host}/\" target=\"_blank\">"
-    replacements.each { |search, replace| body.gsub!(search, replace) }
-    body
+    doc = Nokogiri::HTML body
+    each_text_node(doc) { |node| node.content = replace_occurrences_in(node.content) }
+    doc.inner_html
+  end
+
+  private
+
+  def each_text_node html_doc, &block
+    html_doc.css('body *:not(script)').each do |tag|
+      tag.children.each do |node|
+        yield(node) if node.text?
+      end
+    end
+  end
+
+  def replace_occurrences_in string
+    replacements.each do |pair|
+      search, replace = *pair
+      string.gsub! /(#{search})/i, replace
+    end
+    string
   end
 end
