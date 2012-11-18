@@ -3,15 +3,32 @@
 @import "http://fonts.googleapis.com/css?family=Ribeye+Marrow"
 
 $_columns: 6
-$orange: #ff4b33
-$lighter_orange: #ff7866
+$orange: #ff7866
+$lighter_orange: #FF9A8C
+
+@mixin round_corners($size)
+  -webkit-border-radius: $size
+  -moz-border-radius: $size
+  border-radius: $size
+
+
+@mixin text_box
+  border: 2px solid black
+  @include round_corners(0.5em)
+  padding: 0.5em 0.4em
+  font-size: 1.05em
+  &:focus
+    border-color: $orange
+
 
 article
   @include wrapper
   font-size: 1em
   font-family: Helvetica, sans-serif
-  margin-top: 15%
+  margin-top: 12%
 
+  .input_text
+    @include text_box
 
   header
     @include column(6)
@@ -22,10 +39,6 @@ article
 
   section.replacement_data
     margin-top: 2.6em
-
-    .input_text
-      padding: 0.3em 0.2em
-      font-size: 1.05em
 
     li.url input
       @include column(6)
@@ -65,11 +78,11 @@ article
     li.submit
       @include column(6)
       input
-        border: 1px solid $orange
+        @include text_box
         background: $orange
         margin-top: 0.4em
-        padding: 0.3em 1em
-        font-size: 1.1em
+        padding-left: 2em
+        padding-right: 2em
         cursor: pointer
         margin-left: 0 //fix
         &:hover
@@ -78,7 +91,7 @@ article
           color: #FFFFFF
         &:disabled
           color: gray
-          border: 1px solid gray
+          border: 2px solid gray
           background-color: #F2F2F2
 
       .loading
@@ -91,9 +104,9 @@ article
   section.generated_url
     @include column(6)
     background: $lighter_orange
-    width: 86.7%
+    width: 88.1%
     margin-top: 0.5em
-    border: 1px solid $orange
+    @include text_box
     padding: 0.7em 0.4em 0.6em 0.4em
 
     a
