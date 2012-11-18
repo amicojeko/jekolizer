@@ -56,7 +56,7 @@ class Page
   def replace_occurrences_in string
     replacements.each do |pair|
       search, replace = *pair
-      string.gsub! /(#{search})/i, replace
+      string.gsub!(/(#{search})/i, replace) unless search.strip.empty?
     end
     string
   end
