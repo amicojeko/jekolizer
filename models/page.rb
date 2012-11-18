@@ -36,11 +36,26 @@ class Page
   end
 
   def render
-    body = original_content
-    body.gsub! "<head>", "<head><base href=\"http://#{host}/\" target=\"_blank\">"
-    doc = Nokogiri::HTML body
-    each_text_node(doc) { |node| node.content = replace_occurrences_in(node.content) }
-    doc.inner_html
+    html = find_from_cache if CACHE_PAGES
+    if html
+      html
+    else
+      body = original_content
+      body.gsub! "<head>", "<head><base href=\"http://#{host}/\" target=\"_blank\">"
+      doc = Nokogiri::HTML body
+      each_text_node(doc) { |node| node.content = replace_occurrences_in(node.content) }
+      html = doc.inner_html
+      cache(html) if CACHE_PAGES
+      html
+    end
+  end
+
+  def cache html
+    AWS::S3::S3Object.store @token, html, 'jekolizer'
+  end
+
+  def find_from_cache
+    AWS::S3::S3Object.find(@token, 'jekolizer') rescue nil
   end
 
   private
