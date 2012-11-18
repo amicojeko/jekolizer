@@ -9,7 +9,7 @@ require "#{settings.root}/models/page"
 require "#{settings.root}/lib/assets_proxy"
 
 configure do
-  if ENV["REDISTOGO_URL"]
+  if production?
     uri = URI.parse ENV["REDISTOGO_URL"]
     REDIS = Redis.new(:host => uri.host, :port => uri.port, :password => uri.password)
   else
@@ -21,6 +21,10 @@ end
 helpers do
   include Rack::Utils
   alias :h :escape_html
+
+  def production?
+    ENV["REDISTOGO_URL"]
+  end
 
   def base_url
     @base_url ||= "#{request.env['rack.url_scheme']}://#{request.env['HTTP_HOST']}"
