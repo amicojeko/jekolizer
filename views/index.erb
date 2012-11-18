@@ -14,7 +14,7 @@
       </header>
 
       <section class="replacement_data">
-        <form method="post">
+        <form method="post" action="/generate">
           <ul>
             <li class="url">
               <input type="text" placeholder="http://www.washingtonpost.com/" name="url" id="url" maxlength="300" class="input_text"/>
@@ -39,12 +39,12 @@
         </form>
       </section>
 
-      <% if @page %>
-        <section class="generated_url">
-          <label>Your jekolized URL is:</label>
+      <section class="generated_url hidden">
+        <label>Your jekolized URL is:</label>
+        <% if @page %>
           <a href="<%= base_url+'/'+@page.token %>"><%= base_url+'/'+@page.token %></a>
-        </section>
-      <% end %>
+        <% end %>
+      </section>
     </article>
   </body>
 </html>

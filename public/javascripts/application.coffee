@@ -39,5 +39,66 @@ class ReplacementPair
     @button().click => @remove()
     @el.insertAfter ReplacementPair.default()
 
+
+class Form
+  constructor: ->
+    @el = $ 'form'
+    @submit = @el.find 'input[type="submit"]'
+    @submit.click (e) =>
+      return if @submitting
+      e.preventDefault()
+      e.stopPropagation()
+      @send()
+
+  send: ->
+    return unless @isValid()
+    $.ajax
+      url: @el.attr 'action'
+      data: @el.serialize()+"&json=1"
+      beforeSend: @_beforeSend
+      dataType: 'json'
+      type: 'POST'
+      success: @_sendSucceeded
+      error: @_sendFailed
+      complete: @_sendComplete
+
+  isValid: ->
+    valid = true
+    @el.find('.url input, .search input').each (index, el)->
+      valid = false if $.trim($(el).val()).length == 0
+    valid
+
+  urlSection: =>
+    $ '.generated_url'
+
+  _sendSucceeded: (response) =>
+    link = $ '<a>'
+    link.attr 'href', response.url
+    link.attr 'target', '_blank'
+    link.text response.url
+    link.appendTo @urlSection()
+    @urlSection().removeClass 'hidden'
+
+  _sendFailed: (response) =>
+    # todo
+
+  _sendComplete: =>
+    @submitting = false
+    @submit.attr 'disabled', false
+    $('.loading').remove()
+
+  _beforeSend: =>
+    @submitting = true
+    @submit.attr 'disabled', true
+    @urlSection().addClass 'hidden'
+    @urlSection().find('a').remove()
+    @_loading().insertAfter @submit
+
+  _loading: =>
+    $('<span>').addClass 'loading'
+
+
 $ ->
   new ReplacementPair(true)
+  new Form()
+

@@ -76,6 +76,16 @@ article
           background: $lighter_orange
         &:active
           color: #FFFFFF
+        &:disabled
+          color: gray
+          border: 1px solid gray
+          background-color: #F2F2F2
+
+      .loading
+        background: transparent url('../images/ajax-loader.gif') no-repeat 50% 100%
+        width: 25px
+        height: 20px
+        display: inline-block
 
 
   section.generated_url
@@ -84,8 +94,11 @@ article
     width: 86.7%
     margin-top: 0.5em
     border: 1px solid $orange
-    padding: 0.7em 0.4em
+    padding: 0.7em 0.4em 0.6em 0.4em
 
     a
       color: black
+
+    &.hidden
+      display: none
 

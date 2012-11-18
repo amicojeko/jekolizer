@@ -32,12 +32,15 @@ get '/' do
   erb :index
 end
 
-post '/' do
-  if params[:url] and not params[:url].empty?
-    @page = Page.new params[:url], params[:replacements].values.map(&:values)
-    @page.save
+post '/generate' do
+  @page = Page.new params[:url], params[:replacements].values.map(&:values)
+  @page.save
+  if params[:json]
+    content_type :json
+    {:url => "#{base_url}/#{@page.token}"}.to_json
+  else
+    erb :index
   end
-  erb :index
 end
 
 get '/:shortcode' do
