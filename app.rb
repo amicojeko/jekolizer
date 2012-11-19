@@ -53,6 +53,7 @@ post '/generate' do
 end
 
 get '/:shortcode' do
+  begin
   puts 'render'
   puts "shortcode: #{params[:shortcode]}"
   
@@ -60,4 +61,6 @@ get '/:shortcode' do
   puts pag.inspect
 
   pag.render
+  rescue
+  end
 end
