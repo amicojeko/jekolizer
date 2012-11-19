@@ -9,6 +9,7 @@ class Page
 
   def self.load token
     attributes = REDIS.hgetall token
+    puts "attributes are #{attributes.inspect} for toke #{token.inspect}"
     return nil if !attributes or attributes.empty?
     new attributes['url'], JSON.parse(attributes['replacements']), token
   end
