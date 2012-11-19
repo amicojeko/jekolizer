@@ -39,8 +39,8 @@ class Page
     puts "CACHE_PAGES: #{CACHE_PAGES}"
     html = find_from_cache if CACHE_PAGES
     if html and html.to_s.strip.size > 0
-      puts "html: #{html}"
-      html
+      puts "html: #{html.value}"
+      html.value
     else
       body = original_content
       body.gsub! "<head>", "<head><base href=\"http://#{host}/\" target=\"_blank\">"
@@ -48,7 +48,6 @@ class Page
       each_text_node(doc) { |node| node.content = replace_occurrences_in(node.content) }
       html = doc.inner_html
       cache(html) if CACHE_PAGES
-      puts "html: #{html}"
       html
     end
   end
