@@ -46,6 +46,7 @@ class Page
       each_text_node(doc) { |node| node.content = replace_occurrences_in(node.content) }
       html = doc.inner_html
       cache(html) if CACHE_PAGES
+      puts html
       html
     end
   end
