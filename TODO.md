@@ -5,3 +5,4 @@
 - aggiungere la modalità edit. il salvataggio deve generare una nuova chiave univoca
 - aggiungere il like di facebook 
 - aggiungere share e twit di url jekolizzate
+- forzare l'html encode per evitare problemi sulle accentate come con www.correire.it
