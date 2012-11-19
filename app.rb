@@ -53,5 +53,6 @@ post '/generate' do
 end
 
 get '/:shortcode' do
+  puts 'render'
   Page.load(params[:shortcode]).render
 end
