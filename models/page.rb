@@ -36,10 +36,8 @@ class Page
   end
 
   def render
-    puts "CACHE_PAGES: #{CACHE_PAGES}"
     html = find_from_cache if CACHE_PAGES
     if html and html.to_s.strip.size > 0
-      puts "html: #{html.value}"
       html.value
     else
       body = original_content

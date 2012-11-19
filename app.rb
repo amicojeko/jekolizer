@@ -53,7 +53,6 @@ post '/generate' do
 end
 
 get '/favicon.ico' do
-  puts 'favicon.ico'
 end
 
 get '/:shortcode' do
