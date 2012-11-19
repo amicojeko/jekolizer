@@ -54,5 +54,10 @@ end
 
 get '/:shortcode' do
   puts 'render'
-  Page.load(params[:shortcode]).render
+  puts "shortcode: #{params[:shortcode]}"
+  
+  pag = Page.load(params[:shortcode])
+  puts pag.inspect
+
+  pag.render
 end

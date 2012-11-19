@@ -5,8 +5,6 @@ class Page
     @url = url
     @replacements = replacements
     @token = token
-    puts "Page created url: #{@url} replacements: #{@replacements} token: #{@token}"
-
   end
 
   def self.load token
