@@ -6,3 +6,4 @@
 - aggiungere il like di facebook 
 - aggiungere share e twit di url jekolizzate
 - forzare l'html encode per evitare problemi sulle accentate come con www.correire.it
+- mettere un badge sul sito jekolizzato
