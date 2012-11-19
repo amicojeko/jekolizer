@@ -37,7 +37,7 @@ class Page
 
   def render
     html = find_from_cache if CACHE_PAGES
-    if html
+    if html and html.to_s.strip.size > 0
       html
     else
       body = original_content
