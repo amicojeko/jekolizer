@@ -52,15 +52,9 @@ post '/generate' do
   end
 end
 
-get '/:shortcode' do
-  begin
-  puts 'render'
-  puts "shortcode: #{params[:shortcode]}"
-  
-  pag = Page.load(params[:shortcode])
-  puts pag.inspect
+get '/favicon.ico' do
+end
 
-  pag.render
-  rescue
-  end
+get '/:shortcode' do
+  pag = Page.load(params[:shortcode]).render
 end
