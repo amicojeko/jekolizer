@@ -9,16 +9,14 @@ require "#{settings.root}/models/page"
 require "#{settings.root}/lib/assets_proxy"
 
 configure do
-  CACHE_PAGES = true
+  CACHE_PAGES = false
 
   if production?
+    CACHE_PAGES = true
     uri = URI.parse ENV["REDISTOGO_URL"]
     REDIS = Redis.new :host => uri.host, :port => uri.port, :password => uri.password
-
-    if CACHE_PAGES
-      id, secret = ENV['AWS_S3_ID'], ENV['AWS_S3_SECRET']
-      AWS::S3::Base.establish_connection! :access_key_id => id, :secret_access_key => secret
-    end
+    id, secret = ENV['AWS_S3_ID'], ENV['AWS_S3_SECRET']
+    AWS::S3::Base.establish_connection! :access_key_id => id, :secret_access_key => secret
   else
     REDIS = Redis.new :host => 'localhost', :port => 6379
   end

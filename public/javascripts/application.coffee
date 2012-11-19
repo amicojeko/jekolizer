@@ -9,6 +9,7 @@ class ReplacementPair
       @el = ReplacementPair.default().clone()
       @el.attr 'num', ReplacementPair.count
       @el.find('label').remove()
+      @el.find('input').val ''
       @el.find('input[name="replacements[0][s]"]').attr 'name', "replacements[#{@index()}][s]"
       @el.find('input[name="replacements[0][r]"]').attr 'name', "replacements[#{@index()}][r]"
       @button().removeClass('add').addClass('del').text '-'
@@ -37,7 +38,7 @@ class ReplacementPair
   render: ->
     return if @isDefault()
     @button().click => @remove()
-    @el.insertAfter ReplacementPair.default()
+    @el.insertBefore 'li.submit'
 
 
 class Form

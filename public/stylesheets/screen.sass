@@ -1,9 +1,12 @@
 @import "_reset.css"
 @import "_blankwork.scss"
-@import "http://fonts.googleapis.com/css?family=Ribeye+Marrow"
+@import "http://fonts.googleapis.com/css?family=Oleo+Script"
 
 $_columns: 6
 $orange: #ff7866
+$border_focus: #000000
+$black: #000000
+$white: #ffffff
 $lighter_orange: #FF9A8C
 
 @mixin round_corners($size)
@@ -18,7 +21,15 @@ $lighter_orange: #FF9A8C
   padding: 0.5em 0.4em
   font-size: 1.05em
   &:focus
-    border-color: $orange
+    border-color: $border_focus
+    filter: alpha(opacity=1)
+    KHTMLOpacity: 1
+    MozOpacity: 1
+    opacity: 1
+  filter: alpha(opacity=70)
+  KHTMLOpacity: 0.70
+  MozOpacity: 0.70
+  opacity: 0.70
 
 body
   background-image: url(/images/banda-onesti.jpg)
@@ -36,9 +47,10 @@ article
 
   header
     @include column(6)
-    font-family: "Ribeye Marrow", cursive
-    font-size: 2.3em
-    color: $orange
+    font-family: "Oleo Script", cursive
+    font-size: 5em
+    text-align: center
+    color: $black
 
 
   section.replacement_data
@@ -51,8 +63,9 @@ article
 
     li.replacement_pair
       label
-        font-size: 0.75em
-        color: gray
+        font-size: 2em
+        color: black
+        font-family: "Oleo Script"
 
       input
         margin-bottom: 0.3em
@@ -64,33 +77,44 @@ article
 
       .replace
         @include column(3)
+        white-space: nowrap
         input
           width: 82%
 
       .button
-        font-family: "Ribeye Marrow", cursive
-        font-size: 1.4em
+        font-family: "Arial Black"
+        font-size: 2em
         padding-left: 0.1em
-        color: $orange
+        color: $black
         font-weight: bold
         cursor: pointer
         &:hover
-          color: $lighter_orange
+          filter: alpha(opacity=1)
+          KHTMLOpacity: 1
+          MozOpacity: 1
+          opacity: 1
         &:active
-          color: $lighter_orange
+          color: $white
 
     li.submit
       @include column(6)
+      text-align: center
+      padding-top: 0.4em
       input
         @include text_box
-        background: $orange
-        margin-top: 0.4em
+        font-family: "Oleo Script"
+        font-size: 1.4em
+        background: white
+        margin-top: 0em
         padding-left: 2em
         padding-right: 2em
         cursor: pointer
         margin-left: 0 //fix
         &:hover
-          background: $lighter_orange
+          filter: alpha(opacity=1)
+          KHTMLOpacity: 1
+          MozOpacity: 1
+          opacity: 1
         &:active
           color: #FFFFFF
         &:disabled
@@ -107,11 +131,15 @@ article
 
   section.generated_url
     @include column(6)
-    background: $lighter_orange
+    background: $white
     width: 88.1%
     margin-top: 0.5em
     @include text_box
     padding: 0.7em 0.4em 0.6em 0.4em
+    filter: alpha(opacity=1)
+    KHTMLOpacity: 1
+    MozOpacity: 1
+    opacity: 1
 
     a
       color: black
