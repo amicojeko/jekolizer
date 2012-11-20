@@ -33,13 +33,14 @@ class Page
 
   def original_content
     response = HTTPClient.get url
-    encoding = response.body_encoding
-    ec = Encoding::Converter.new(encoding, "UTF-8")
+    ec = Encoding::Converter.new(response.body_encoding, "UTF-8")
+
     begin
-      content = ec.convert(response.content) 
+      content = ec.convert(response.content)
     rescue
       content = response.content
     end
+
     @original_content ||= content
   end
 
