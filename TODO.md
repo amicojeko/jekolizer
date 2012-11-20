@@ -1,0 +1,9 @@
+- non deve essere possibile jekolizzare url di jekolizer
+- aggiungere l'effetto parallasse sul background
+- mettere il resize intelligente del background prada style
+- risolvere i problemi di replace delle accentate encodate
+- aggiungere la modalità edit. il salvataggio deve generare una nuova chiave univoca
+- aggiungere il like di facebook 
+- aggiungere share e twit di url jekolizzate
+- forzare l'html encode per evitare problemi sulle accentate come con www.correire.it
+- mettere un badge sul sito jekolizzato

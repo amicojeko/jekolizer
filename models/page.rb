@@ -39,7 +39,7 @@ class Page
   def render
     html = find_from_cache if CACHE_PAGES
     if html and html.to_s.strip.size > 0
-      html
+      html.value
     else
       body = original_content
       body.gsub! "<head>", "<head><base href=\"http://#{host}/\" target=\"_blank\">"
