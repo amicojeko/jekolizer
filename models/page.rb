@@ -32,7 +32,12 @@ class Page
   end
 
   def original_content
-    @original_content ||= HTTPClient.get_content url
+    response = HTTPClient.get url
+    content = response.content
+    encoding = response.body_encoding
+    ec = Encoding::Converter.new(encoding, "UTF-8")
+    content = ec.convert(content)
+    @original_content ||= content
   end
 
   def render
