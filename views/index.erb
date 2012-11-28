@@ -3,11 +3,13 @@
   <head>
     <title>The Jekolizer</title>
     <script type="text/javascript" src="javascripts/jquery.min.js"></script>
+    <script type="text/javascript" src="javascripts/smartBackgroundResize-1.0-jquery-plugin.js"></script>
     <link href="stylesheets/screen.css" media="screen" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="javascripts/application.js"></script>
   </head>
 
   <body>
+    <div id="background"></div>
     <article>
       <header>
           <h1>The Jekolizer</h1>
@@ -46,5 +48,13 @@
         <% end %>
       </section>
     </article>
+    
+    <script type="text/javascript"> 
+      $(document).ready(function(){
+        $('#background').smartBackgroundResize({
+          image: 'images/banda-onesti.jpg' // relative or absolute path to background image file       
+        });
+      });
+    </script>
   </body>
 </html>
