@@ -51,6 +51,7 @@ class Page
     else
       body = original_content
       body.gsub! "<head>", "<head><base href=\"http://#{host}/\" target=\"_blank\">"
+      body.gsub! "</body>", "<script type=\"text/javascript\">\n var _gaq = _gaq || [];\n _gaq.push(['_setAccount', 'UA-5736692-22']);\n _gaq.push(['_trackPageview']);\n (function() {\n var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;\n ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';\n var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);\n })();\n </script>\n</body>"
       doc = Nokogiri::HTML body
       each_text_node(doc) { |node| node.content = replace_occurrences_in(node.content) }
       html = doc.inner_html
