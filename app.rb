@@ -3,6 +3,7 @@ require 'rubygems'
 require 'sinatra'
 require 'bundler'
 require 'json'
+
 Bundler.require
 
 require "#{settings.root}/models/page"
@@ -10,7 +11,6 @@ require "#{settings.root}/lib/assets_proxy"
 
 configure do
   CACHE_PAGES = false
-
   if production?
     CACHE_PAGES = true
     uri = URI.parse ENV["REDISTOGO_URL"]

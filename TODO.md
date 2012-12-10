@@ -7,3 +7,5 @@
 - aggiungere share e twit di url jekolizzate
 - forzare l'html encode per evitare problemi sulle accentate come con www.correire.it
 - mettere un badge sul sito jekolizzato
+- mettere il + sull'ultimo campo e non sul primo
+- se c'è un campo vuoto, non jekolizza
