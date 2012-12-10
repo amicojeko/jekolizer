@@ -55,6 +55,7 @@ class Page
       body.gsub! "</body>", "#{google_analytics_code}\n</body>"
       doc = Nokogiri::HTML body
       each_text_node(doc) { |node| node.content = replace_occurrences_in(node.content) }
+      replace_meta_description doc
       html = doc.inner_html
       cache(html) if CACHE_PAGES
       html
@@ -83,8 +84,10 @@ class Page
     end
   end
 
-  def replace_attribute_value tag_name, attribute_name
-    
+  def replace_meta_description html_doc
+    html_doc.css('head > meta[name="description"]').each do |tag|
+      tag['content'] = replace_occurrences_in tag['content'].to_s
+    end
   end
 
   def replace_occurrences_in string
