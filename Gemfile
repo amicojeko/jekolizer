@@ -1,3 +1,4 @@
+
 source "http://rubygems.org"
 
 gem 'sinatra', :require => "sinatra/base"
@@ -15,7 +16,11 @@ gem 'colorize'
 
 # xml/html/json handling
 gem 'nokogiri'
+gem 'json'
 
 # assets
 gem 'sass'
 gem 'coffee-script'
+
+gem 'minitest'
+gem 'rack-test'
