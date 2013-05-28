@@ -1,27 +1,32 @@
 class Page
-  attr_reader :replacements, :token
+  attr_reader :replacements
+  attr_accessor :token
 
   def initialize url, replacements, token=nil
-    @url = url
+    @url = url.downcase
     @replacements = replacements
     @token = token
   end
 
   def self.load token
     attributes = REDIS.hgetall token
-    puts "attributes are #{attributes.inspect} for toke #{token.inspect}"
     return nil if !attributes or attributes.empty?
     new attributes['url'], JSON.parse(attributes['replacements']), token
   end
 
   def save
-    @token ||= generate_unique_token
-    attributes = {:url => url, :host => host, :replacements => replacements.to_s}
-    attributes.each { |key, value| REDIS.hset(@token, key, value) }
+    set_token
+    attributes.each do |name, value|
+      REDIS.hset token, name, value
+    end
   end
 
-  def generate_unique_token
-    REDIS.incr('token_count').to_s 36
+  def set_token
+    self.token ||= REDIS.incr('token_count').to_s 36
+  end
+
+  def attributes
+    {:url => url, :host => host, :replacements => replacements.to_s}
   end
 
   def host
@@ -29,7 +34,7 @@ class Page
   end
 
   def url
-    @url =~ /http:\/\//i ? @url : "http://#{@url}"
+    @url =~ Regexp.new('http://') ? @url : "http://#{@url}"
   end
 
   def original_content
