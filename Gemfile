@@ -22,5 +22,5 @@ gem 'json'
 gem 'sass'
 gem 'coffee-script'
 
-gem 'minitest'
-gem 'rack-test'
+gem 'minitest',  :require => false
+gem 'rack-test', :require => false
