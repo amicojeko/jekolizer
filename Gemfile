@@ -7,8 +7,10 @@ gem 'sinatra', :require => "sinatra/base"
 gem 'redis'
 gem 'aws-s3'
 
-# Networking support
+# support
 gem 'httpclient'
+gem 'json'
+gem 'activesupport'
 
 # Debugging
 gem 'pry'
@@ -22,5 +24,6 @@ gem 'json'
 gem 'sass'
 gem 'coffee-script'
 
-gem 'minitest',  :require => false
+gem 'rspec',     :require => false
 gem 'rack-test', :require => false
+gem 'rr',        :require => false
