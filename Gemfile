@@ -26,4 +26,4 @@ gem 'coffee-script'
 
 gem 'rspec',     :require => false
 gem 'rack-test', :require => false
-gem 'rr',        :require => false
+gem 'fakeweb',   :require => false

@@ -7,11 +7,12 @@ require 'active_support/core_ext'
 
 Bundler.require
 
+require "#{settings.root}/models/converter"
+require "#{settings.root}/models/cacher"
 require "#{settings.root}/models/page"
 require "#{settings.root}/lib/assets_proxy"
 
 configure do
-  CACHE_PAGES = false
   if production?
     CACHE_PAGES = true
     uri = URI.parse ENV["REDISTOGO_URL"]
@@ -19,6 +20,7 @@ configure do
     id, secret = ENV['AWS_S3_ID'], ENV['AWS_S3_SECRET']
     AWS::S3::Base.establish_connection! :access_key_id => id, :secret_access_key => secret
   else
+    CACHE_PAGES = false
     REDIS = Redis.new :host => 'localhost', :port => 6379
   end
 end

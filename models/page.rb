@@ -38,17 +38,11 @@ class Page
   end
 
   def original_content
-    begin
-      ec = Encoding::Converter.new(response.body_encoding, 'UTF-8')
-      content = ec.convert(response.content)
-    rescue
-      content = response.content
-    end
-    @original_content ||= content
+    @original_content ||= Converter.convert(response)
   end
 
-  def response
-    @response ||= HTTPClient.get url
+  def google_analytics_code
+    @analytics ||= File.read 'views/analytics.html'
   end
 
   def render
@@ -68,19 +62,19 @@ class Page
     end
   end
 
-  def google_analytics_code
-    "<script type=\"text/javascript\">\n var _gaq = _gaq || [];\n _gaq.push(['_setAccount', 'UA-5736692-22']);\n _gaq.push(['_trackPageview']);\n (function() {\n var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;\n ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';\n var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);\n })();\n </script>"
-  end
-
   def cache html
-    AWS::S3::S3Object.store @token, html, 'jekolizer'
+    Cacher.store token, html
   end
 
   def find_from_cache
-    AWS::S3::S3Object.find(@token, 'jekolizer') rescue nil
+    Cacher.retrieve token
   end
 
   private
+
+  def response
+    @response ||= HTTPClient.get url
+  end
 
   def each_text_node html_doc, &block
     html_doc.css('body *:not(script), head > title').each do |tag|
