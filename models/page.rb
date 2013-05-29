@@ -1,6 +1,6 @@
 class Page
   attr_reader :replacements
-  attr_accessor :token, :html
+  attr_accessor :token, :html, :doc
 
   def initialize url, replacements, token=nil
     @url = url.downcase
@@ -52,6 +52,7 @@ class Page
 
   private
 
+  # TODO handle redirects
   def response
     @response ||= HTTPClient.get url
   end
@@ -103,15 +104,15 @@ class Page
     Cacher.retrieve token
   end
 
-  def prepare_body
-    body = original_content.tap do |body|
+  def prepared_body
+    original_content.tap do |body|
       body.gsub! '<head>',  %(<head><base href="http://#{host}/" target="_blank">)
       body.gsub! '</body>', "#{google_analytics_code}\n</body>"
     end
   end
 
   def replace_keywords
-    self.doc  = Nokogiri::HTML prepare_body
+    self.doc  = Nokogiri::HTML prepared_body
     each_text_node(doc) { |node| node.content = replace_occurrences_in(node.content) }
     replace_meta_description
   end

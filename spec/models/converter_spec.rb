@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Converter do
-  let(:response) { mock :content => 'content', :encoding => 'utf-8' }
+  let(:response) { mock :content => 'content', :body_encoding => 'utf-8' }
 
   subject { Converter.new(response) }
 

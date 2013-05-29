@@ -7,7 +7,7 @@ class Converter
 
   def initialize(response)
     @content  = response.content
-    @encoding = response.encoding
+    @encoding = response.body_encoding
   end
 
   def to_utf8

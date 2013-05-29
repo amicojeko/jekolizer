@@ -9,6 +9,10 @@ describe Page do
 
   it { subject.attributes.should be_a Hash }
 
+  it { should respond_to :token }
+  it { should respond_to :html }
+  it { should respond_to :doc }
+
   describe '#url' do
     it 'includes protocol' do
       subject.url[0..6].should == 'http://'
