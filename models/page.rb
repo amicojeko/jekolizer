@@ -1,6 +1,6 @@
 class Page
   attr_reader :replacements
-  attr_accessor :token
+  attr_accessor :token, :html
 
   def initialize url, replacements, token=nil
     @url = url.downcase
@@ -46,28 +46,8 @@ class Page
   end
 
   def render
-    html = find_from_cache if CACHE_PAGES
-    if html and html.to_s.strip.size > 0
-      html.value
-    else
-      body = original_content
-      body.gsub! "<head>", "<head><base href=\"http://#{host}/\" target=\"_blank\">"
-      body.gsub! "</body>", "#{google_analytics_code}\n</body>"
-      doc = Nokogiri::HTML body
-      each_text_node(doc) { |node| node.content = replace_occurrences_in(node.content) }
-      replace_meta_description doc
-      html = doc.inner_html
-      cache(html) if CACHE_PAGES
-      html
-    end
-  end
-
-  def cache html
-    Cacher.store token, html
-  end
-
-  def find_from_cache
-    Cacher.retrieve token
+    retrieve_html_from_cache
+    html_present? ? html.value : build_html
   end
 
   private
@@ -84,8 +64,8 @@ class Page
     end
   end
 
-  def replace_meta_description html_doc
-    html_doc.css('head > meta[name="description"]').each do |tag|
+  def replace_meta_description
+    doc.css('head > meta[name="description"]').each do |tag|
       tag['content'] = replace_occurrences_in tag['content'].to_s
     end
   end
@@ -96,5 +76,49 @@ class Page
       string.gsub!(/(#{search})/i, replace) unless search.strip.empty?
     end
     string
+  end
+
+  def should_cache?
+    CACHE_PAGES
+  end
+
+  def retrieve_html_from_cache
+    self.html = find_from_cache if should_cache?
+  end
+
+  def html_present?
+    html.to_s.present?
+  end
+
+  def build_html
+    replace_keywords
+    set_html
+  end
+
+  def cache html
+    Cacher.store token, html
+  end
+
+  def find_from_cache
+    Cacher.retrieve token
+  end
+
+  def prepare_body
+    body = original_content.tap do |body|
+      body.gsub! '<head>',  %(<head><base href="http://#{host}/" target="_blank">)
+      body.gsub! '</body>', "#{google_analytics_code}\n</body>"
+    end
+  end
+
+  def replace_keywords
+    self.doc  = Nokogiri::HTML prepare_body
+    each_text_node(doc) { |node| node.content = replace_occurrences_in(node.content) }
+    replace_meta_description
+  end
+
+  def set_html
+    html = doc.inner_html
+    cache html if should_cache?
+    self.html = html
   end
 end

@@ -47,9 +47,10 @@ end
 post '/generate' do
   @page = Page.new params[:url], params[:replacements].values.map(&:values)
   @page.save
+  @url = "#{base_url}/#{@page.token}"
   if params[:json]
     content_type :json
-    {:url => "#{base_url}/#{@page.token}"}.to_json
+    {:url => @url}.to_json
   else
     erb :index
   end

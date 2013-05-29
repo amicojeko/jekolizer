@@ -42,14 +42,4 @@ describe Page do
   it 'reads analytics html file' do
     subject.google_analytics_code.should =~ /getElementsByTagName/
   end
-
-  it 'caches html' do
-    Cacher.should_receive :store
-    subject.cache('<html></html>')
-  end
-
-  it 'retrieves html from cache' do
-    Cacher.should_receive :retrieve
-    subject.find_from_cache
-  end
 end
