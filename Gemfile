@@ -1,7 +1,7 @@
 
 source "http://rubygems.org"
 
-gem 'sinatra', :require => "sinatra/base"
+gem 'sinatra', '1.3.3', :require => "sinatra/base"
 
 # Data / Caching
 gem 'redis'
@@ -27,3 +27,4 @@ gem 'coffee-script'
 gem 'rspec',     :require => false
 gem 'rack-test', :require => false
 gem 'fakeweb',   :require => false
+gem 'rake'
