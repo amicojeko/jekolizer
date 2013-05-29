@@ -5,13 +5,12 @@ describe Page do
   def rel_url; 'www.mikamai.com/url'; end
   def abs_url; 'http://mikamai.com/another'; end
 
-  subject { Page.new abs_url ,replacements }
+  subject { Page.new abs_url, replacements }
 
   it { subject.attributes.should be_a Hash }
 
   it { should respond_to :token }
   it { should respond_to :html }
-  it { should respond_to :doc }
 
   describe '#url' do
     it 'includes protocol' do
@@ -41,9 +40,5 @@ describe Page do
     subject.stub :content => mock
     Converter.should_receive(:convert).and_return mock
     2.times { subject.original_content }
-  end
-
-  it 'reads analytics html file' do
-    subject.google_analytics_code.should =~ /getElementsByTagName/
   end
 end

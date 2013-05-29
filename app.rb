@@ -8,6 +8,7 @@ require 'active_support/core_ext'
 Bundler.require
 
 require "#{settings.root}/models/converter"
+require "#{settings.root}/models/renderer"
 require "#{settings.root}/models/cacher"
 require "#{settings.root}/models/page"
 require "#{settings.root}/lib/assets_proxy"
@@ -31,7 +32,7 @@ helpers do
   alias :h :escape_html
 
   def production?
-    ENV["REDISTOGO_URL"]
+    ENV['REDISTOGO_URL']
   end
 
   def base_url
