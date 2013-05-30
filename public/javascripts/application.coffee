@@ -1,7 +1,16 @@
 window.puts = (string)-> console?.log? string
 
 class ReplacementPair
-  constructor: (isDefault)->
+  @count: ->
+    list = []
+    $('.replacement_pair').each (index, el)-> list.push($(el).attr('num')*1)
+    list.sort()
+    list[list.length - 1]+1
+
+  @default: -> $ '.replacement_pair[num="0"]'
+
+
+  constructor: (isDefault) ->
     if isDefault?
       @el = ReplacementPair.default()
       @button().click -> (new ReplacementPair()).render()
@@ -14,31 +23,17 @@ class ReplacementPair
       @el.find('input[name="replacements[0][r]"]').attr 'name', "replacements[#{@index()}][r]"
       @button().removeClass('add').addClass('del').text '-'
 
-  button: ->
-    @el.find '.button'
-
-  @default: ->
-    $ '.replacement_pair[num="0"]'
-
-  @count: ->
-    list = []
-    $('.replacement_pair').each (index, el)-> list.push($(el).attr('num')*1)
-    list.sort()
-    list[list.length - 1]+1
-
-  isDefault: ->
-    @index() is 0
-
-  index: ->
-    @el.attr('num')*1
-
-  remove: ->
-    @el.remove()
+  button:    -> @el.find '.button'
+  isDefault: -> @index() is 0
+  index:     -> @el.attr('num')*1
+  remove:    -> @el.remove()
 
   render: ->
-    return if @isDefault()
-    @button().click => @remove()
-    @el.insertBefore 'li.submit'
+    unless @isDefault()
+      @button().click => @remove()
+      @el.insertBefore 'li.submit'
+
+
 
 
 class Form
@@ -46,31 +41,30 @@ class Form
     @el = $ 'form'
     @submit = @el.find 'input[type="submit"]'
     @submit.click (e) =>
-      return if @submitting
-      e.preventDefault()
-      e.stopPropagation()
-      @send()
+      unless @submitting
+        e.preventDefault()
+        e.stopPropagation()
+        @send()
 
   send: ->
     return unless @isValid()
     $.ajax
-      url: @el.attr 'action'
-      data: @el.serialize()+"&json=1"
+      url:        @el.attr 'action'
+      data:       @el.serialize()+"&json=1"
       beforeSend: @_beforeSend
-      dataType: 'json'
-      type: 'POST'
-      success: @_sendSucceeded
-      error: @_sendFailed
-      complete: @_sendComplete
+      dataType:   'json'
+      type:       'POST'
+      success:    @_sendSucceeded
+      error:      @_sendFailed
+      complete:   @_sendComplete
 
   isValid: ->
     valid = true
     @el.find('.url input, .search input').each (index, el)->
-      valid = false if $.trim($(el).val()).length == 0
+      valid = false unless $.trim($(el).val()).length
     valid
 
-  urlSection: =>
-    $ '.generated_url'
+  urlSection: -> $ '.generated_url'
 
   _sendSucceeded: (response) =>
     link = $ '<a>'
@@ -99,7 +93,7 @@ class Form
     $('<span>').addClass 'loading'
 
 
+
 $ ->
   new ReplacementPair(true)
   new Form()
-
