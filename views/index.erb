@@ -44,20 +44,20 @@
       <section class="generated_url hidden">
         <label>Your jekolized url is</label>
         <% if @page %>
-          <a href="<%= base_url+'/'+@page.token %>"><%= base_url+'/'+@page.token %></a>
+          <a href="<%= @url %>"><%= @url %></a>
         <% end %>
       </section>
     </article>
-    
-    <script type="text/javascript"> 
+
+    <script type="text/javascript">
       $(document).ready(function(){
         $('#background').smartBackgroundResize({
-          image: 'images/banda-onesti.jpg' // relative or absolute path to background image file       
+          image: 'images/banda-onesti.jpg'
         });
       });
     </script>
-    <script type="text/javascript">
 
+    <script type="text/javascript">
       var _gaq = _gaq || [];
       _gaq.push(['_setAccount', 'UA-5736692-22']);
       _gaq.push(['_trackPageview']);
@@ -67,7 +67,6 @@
         ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
         var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
       })();
-
     </script>
   </body>
 </html>
