@@ -18,7 +18,7 @@ class Page
   def save
     set_token
     attributes.each do |name, value|
-      REDIS.hset token, name, value.to_s
+      REDIS.hset token, name, value
     end
   end
 
@@ -27,7 +27,7 @@ class Page
   end
 
   def attributes
-    {:url => url, :host => host, :replacements => replacements}
+    {:url => url, :host => host, :replacements => replacements.inspect}
   end
 
   def host
