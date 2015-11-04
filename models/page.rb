@@ -27,7 +27,7 @@ class Page
   end
 
   def attributes
-    {:url => url, :host => host, :replacements => replacements.inspect}
+    {url: url, host: host, replacements: replacements.inspect}
   end
 
   def host
@@ -35,7 +35,7 @@ class Page
   end
 
   def url
-    @url =~ Regexp.new('http://') ? @url : "http://#{@url}"
+    @url =~ %r{https?://} ? @url : "http://#{@url}"
   end
 
   def original_content
@@ -50,14 +50,13 @@ class Page
   private
 
   def build_html
-    self.html = Renderer.new(self).html
+    self.html = Renderer.new(self).html.to_s
     cache html if should_cache?
     html
   end
 
-  # TODO handle redirects
   def remote_content
-    @remote_content ||= HTTPClient.get url
+    @remote_content ||= HTTPClient.get url, follow_redirect: true
   end
 
   def should_cache?

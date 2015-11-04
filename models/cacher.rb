@@ -6,10 +6,10 @@ module Cacher
   end
 
   def store(token, html)
-    AWS::S3::S3Object.store token, html, name
+    REDIS.set("#{name}:#{token}", html)
   end
 
   def retrieve(token)
-    AWS::S3::S3Object.find(token, name) rescue nil
+    REDIS.get("#{name}:#{token}") rescue nil
   end
 end

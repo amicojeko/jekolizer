@@ -5,20 +5,20 @@ describe Cacher do
   let(:html)  { mock }
 
   describe '#store' do
-    it 'delegates to AWS::S3::S3Object.store' do
-      AWS::S3::S3Object.should_receive :store
+    it 'delegates to REDIS.set' do
+      REDIS.should_receive :set
       Cacher.store token, html
     end
   end
 
   describe '#retrieve' do
-    it 'delegates to AWS::S3::S3Object.find' do
-      AWS::S3::S3Object.should_receive :find
+    it 'delegates to REDIS.get' do
+      REDIS.should_receive :get
       Cacher.retrieve token
     end
 
     it 'returns nil when an error occurs' do
-      AWS::S3::S3Object.stub(:find) { raise ArgumentError }
+      REDIS.stub(:find) { raise ArgumentError }
       Cacher.retrieve(token).should be_nil
     end
   end

@@ -13,27 +13,13 @@ require "#{settings.root}/models/cacher"
 require "#{settings.root}/models/page"
 require "#{settings.root}/lib/assets_proxy"
 
-configure do
-  if production?
-    CACHE_PAGES = true
-    uri = URI.parse ENV["REDISTOGO_URL"]
-    REDIS = Redis.new :host => uri.host, :port => uri.port, :password => uri.password
-    id, secret = ENV['AWS_S3_ID'], ENV['AWS_S3_SECRET']
-    AWS::S3::Base.establish_connection! :access_key_id => id, :secret_access_key => secret
-  else
-    CACHE_PAGES = false
-    REDIS = Redis.new :host => 'localhost', :port => 6379
-  end
-end
-
+CACHE_PAGES = ENV['CACHE_PAGES']
+redis_uri = URI.parse(ENV["REDIS_URL"] || ENV["REDISTOGO_URL"] || 'redis://localhost:6379')
+REDIS = Redis.new host: redis_uri.host, port: redis_uri.port, password: redis_uri.password
 
 helpers do
   include Rack::Utils
   alias :h :escape_html
-
-  def production?
-    ENV['REDISTOGO_URL']
-  end
 
   def base_url
     @base_url ||= "#{request.env['rack.url_scheme']}://#{request.env['HTTP_HOST']}"
@@ -51,7 +37,7 @@ post '/generate' do
   @url = "#{base_url}/#{@page.token}"
   if params[:json]
     content_type :json
-    {:url => @url}.to_json
+    {url: @url}.to_json
   else
     erb :index
   end
