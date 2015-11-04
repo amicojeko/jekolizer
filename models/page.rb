@@ -27,7 +27,7 @@ class Page
   end
 
   def attributes
-    {:url => url, :host => host, :replacements => replacements.inspect}
+    {url: url, host: host, replacements: replacements.inspect}
   end
 
   def host

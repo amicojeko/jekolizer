@@ -51,7 +51,7 @@ post '/generate' do
   @url = "#{base_url}/#{@page.token}"
   if params[:json]
     content_type :json
-    {:url => @url}.to_json
+    {url: @url}.to_json
   else
     erb :index
   end
