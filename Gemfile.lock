@@ -38,7 +38,7 @@ GEM
     rack-test (0.6.3)
       rack (>= 1.0)
     rake (10.4.2)
-    redis (3.2.1)
+    redis (4.8.1)
     rspec (3.3.0)
       rspec-core (~> 3.3.0)
       rspec-expectations (~> 3.3.0)
@@ -79,7 +79,7 @@ DEPENDENCIES
   pry
   rack-test
   rake
-  redis
+  redis (~> 4)
   rspec
   sass
   sinatra

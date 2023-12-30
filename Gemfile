@@ -7,7 +7,7 @@ gem 'sinatra', require: 'sinatra/base'
 gem 'webrick'
 
 # Data / Caching
-gem 'redis'
+gem 'redis', '~> 4'
 
 # support
 gem 'httpclient'
