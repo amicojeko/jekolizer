@@ -8,7 +8,7 @@ gem 'redis'
 
 # support
 gem 'httpclient'
-gem 'activesupport', '~> 3.2.13'
+gem 'activesupport', '~> 5'
 
 # Debugging
 gem 'pry'
