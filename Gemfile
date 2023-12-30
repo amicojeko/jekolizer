@@ -11,7 +11,7 @@ gem 'redis', '~> 4'
 
 # support
 gem 'httpclient'
-gem 'activesupport', '~> 5'
+gem 'activesupport'
 
 # Debugging
 gem 'pry'
