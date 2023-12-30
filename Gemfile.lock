@@ -63,6 +63,7 @@ GEM
     tilt (2.3.0)
     tzinfo (1.2.11)
       thread_safe (~> 0.1)
+    webrick (1.8.1)
 
 PLATFORMS
   ruby
@@ -82,6 +83,7 @@ DEPENDENCIES
   rspec
   sass
   sinatra
+  webrick
 
 RUBY VERSION
    ruby 3.2.2p53

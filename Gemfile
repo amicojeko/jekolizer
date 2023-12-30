@@ -3,6 +3,9 @@ ruby '3.2.2'
 
 gem 'sinatra', require: 'sinatra/base'
 
+# Server
+gem 'webrick'
+
 # Data / Caching
 gem 'redis'
 
