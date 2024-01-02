@@ -3,6 +3,7 @@ require 'rubygems'
 require 'sinatra'
 require 'bundler'
 require 'json'
+require 'active_support'
 require 'active_support/core_ext'
 
 Bundler.require

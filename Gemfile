@@ -1,14 +1,17 @@
 source 'https://rubygems.org'
-ruby '2.1.7'
+ruby '3.2.2'
 
 gem 'sinatra', require: 'sinatra/base'
 
+# Server
+gem 'webrick'
+
 # Data / Caching
-gem 'redis'
+gem 'redis', '~> 4'
 
 # support
 gem 'httpclient'
-gem 'activesupport', '~> 3.2.13'
+gem 'activesupport'
 
 # Debugging
 gem 'pry'
